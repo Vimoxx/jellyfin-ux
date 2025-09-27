@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    if: ${{ github.repository == 'jellyfin/jellyfin-ux' }}
+    if: ${{ github.repository == 'vimoxx/jellyfin-ux' }}
     defaults:
         run:
             working-directory: ./branding/web
