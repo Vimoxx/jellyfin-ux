@@ -13,14 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Instala Node.js
+      # 2. Instala Node.js y configura cache
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          registry-url: https://npm.pkg.github.com
           cache: 'npm'
           cache-dependency-path: ./branding/web/package-lock.json
-          registry-url: https://npm.pkg.github.com
 
       # 3. Instala dependencias usando el lockfile
       - name: Install dependencies
