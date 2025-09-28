@@ -6,17 +6,17 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: ${{ github.repository == 'Vimoxx/jellyfin-ux' }}
     defaults:
       run:
         working-directory: ./branding/web
-    permissions:
-      contents: read
-      packages: write
 
     steps:
+      # 1. Clona el repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2. Instala Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,9 +24,11 @@ jobs:
           cache: npm
           registry-url: https://npm.pkg.github.com
 
+      # 3. Instala dependencias (usa npm install porque el lockfile está en la subcarpeta)
       - name: Install dependencies
-        run: npm ci --no-audit
+        run: npm install --no-audit
 
+      # 4. Publica en GitHub Packages
       - name: Publish to GitHub Packages
         run: npm publish --provenance
         env:
