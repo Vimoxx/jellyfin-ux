@@ -1,7 +1,7 @@
 {
-  "name": "@jellyfin/ux-web",
+  "name": "@vimoxx/ux-web",
   "version": "1.0.0",
-  "description": "UX resources for the Jellyfin Web client (private fork).",
+  "description": "UX resources for my custom Jellyfin Web client",
   "license": "CC-BY-SA-4.0",
   "repository": {
     "type": "git",
@@ -9,5 +9,7 @@
     "directory": "branding/web"
   },
   "homepage": "https://github.com/vimoxx/jellyfin-ux/tree/master/branding/web#readme",
-  "private": true
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  }
 }
