@@ -33,6 +33,6 @@ jobs:
       # 4. Publica en GitHub Packages
       - name: Publish to GitHub Packages
         working-directory: ./branding/web
-        run: npm publish
+        run: npm publish --registry=https://npm.pkg.github.com --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
