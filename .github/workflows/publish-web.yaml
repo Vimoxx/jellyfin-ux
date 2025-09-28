@@ -7,6 +7,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     if: ${{ github.repository == 'Vimoxx/jellyfin-ux' }}
+    defaults:
+      run:
+        working-directory: ./branding/web
 
     steps:
       # 1. Clona el repositorio
