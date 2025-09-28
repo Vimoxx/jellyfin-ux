@@ -1,4 +1,4 @@
-name: Publish @jellyfin/ux-web
+name: Publish @Vimoxx/ux-web
 
 on:
   workflow_dispatch:
@@ -6,30 +6,25 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     if: ${{ github.repository == 'vimoxx/jellyfin-ux' }}
     defaults:
-        run:
-            working-directory: ./branding/web
+      run:
+        working-directory: ./branding/web
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          check-latest: true
           cache: npm
-          cache-dependency-path: ./branding/web
-          registry-url: https://registry.npmjs.org
+          registry-url: https://npm.pkg.github.com
 
-      - name: Install Node.js dependencies
+      - name: Install dependencies
         run: npm ci --no-audit
 
-      - name: Publish the SDK to npm
+      - name: Publish to GitHub Packages
         run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
