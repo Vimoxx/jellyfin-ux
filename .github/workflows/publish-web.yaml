@@ -24,9 +24,9 @@ jobs:
           cache: npm
           registry-url: https://npm.pkg.github.com
 
-      # 3. Instala dependencias (usa npm install porque el lockfile está en la subcarpeta)
+      # 3. Instala dependencias usando el lockfile
       - name: Install dependencies
-        run: npm install --no-audit
+        run: npm ci --no-audit
 
       # 4. Publica en GitHub Packages
       - name: Publish to GitHub Packages
