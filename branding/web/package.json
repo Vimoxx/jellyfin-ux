@@ -1,16 +1,31 @@
-{
-  "name": "@Vimoxx/jellyfin-ux",
-  "version": "1.0.0",
-  "description": "Tema UX personalizado para Jellyfin",
-  "main": "index.js",
-  "license": "CC-BY-SA-4.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Vimoxx/jellyfin-ux.git",
-    "directory": "branding/web"
-  },
-  "homepage": "https://github.com/Vimoxx/jellyfin-ux/tree/master/branding/web#readme",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
-}
+name: Publish @Vimoxx/jellyfin-ux
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'Vimoxx/jellyfin-ux' }}
+    defaults:
+      run:
+        working-directory: ./branding/web
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+
+      - name: Install dependencies
+        run: npm ci --no-audit
+
+      - name: Publish to GitHub Packages
+        run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
