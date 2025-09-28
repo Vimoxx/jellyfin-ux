@@ -6,10 +6,12 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'Vimoxx/jellyfin-ux' }}
     defaults:
       run:
         working-directory: ./branding/web
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
@@ -29,4 +31,3 @@ jobs:
         run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
