@@ -1,5 +1,5 @@
 {
-  "name": "@vimoxx/ux-web",
+  "name": "@jellyfin/ux-web",
   "version": "1.0.0",
   "description": "UX resources for the Jellyfin Web client (private fork).",
   "license": "CC-BY-SA-4.0",
