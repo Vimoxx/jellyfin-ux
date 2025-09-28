@@ -1,7 +1,8 @@
 {
-  "name": "@Vimoxx/ux-web",
+  "name": "@Vimoxx/jellyfin-ux",
   "version": "1.0.0",
-  "description": "UX resources for my custom Jellyfin Web client",
+  "description": "Tema UX personalizado para Jellyfin",
+  "main": "index.js",
   "license": "CC-BY-SA-4.0",
   "repository": {
     "type": "git",
