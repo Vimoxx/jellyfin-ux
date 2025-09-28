@@ -1,4 +1,4 @@
-name: Publish @Vimoxx/ux-web
+name: Publish @jellyfin/ux-web
 
 on:
   workflow_dispatch:
@@ -6,33 +6,30 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: ${{ github.repository == 'Vimoxx/jellyfin-ux' }}
+    permissions:
+      contents: read
+      id-token: write
+    if: ${{ github.repository == 'jellyfin/jellyfin-ux' }}
     defaults:
-      run:
-        working-directory: ./branding/web
-
+        run:
+            working-directory: ./branding/web
     steps:
-      # 1. Clona el repositorio
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Check out Git repository
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
 
-      # 2. Instala Node.js y configura cache
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com
-          cache: 'npm'
-          cache-dependency-path: ./branding/web/package-lock.json
+          check-latest: true
+          cache: npm
+          cache-dependency-path: ./branding/web
+          registry-url: https://registry.npmjs.org
 
-      # 3. Instala dependencias usando el lockfile
-      - name: Install dependencies
-        working-directory: ./branding/web
+      - name: Install Node.js dependencies
         run: npm ci --no-audit
 
-      # 4. Publica en GitHub Packages
-      - name: Publish to GitHub Packages
-        working-directory: ./branding/web
-        run: npm publish --registry=https://npm.pkg.github.com --access public
+      - name: Publish the SDK to npm
+        run: npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
